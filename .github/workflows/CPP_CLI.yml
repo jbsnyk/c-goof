@@ -1,0 +1,25 @@
+name: Snyk C++ Unmanaged SBOM Scan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  snyk-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
+      # Step 2: Scan the unmanaged dependencies in C++ for vulnerabilities. Typically in a Vendors directory 
+      - name: Scan C++ for vulnerabilities
+        continue-on-error: true
+        run: |
+          snyk test --unmanaged
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
