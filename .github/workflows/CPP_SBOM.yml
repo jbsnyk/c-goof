@@ -1,0 +1,41 @@
+name: Snyk C++ Unmanaged SBOM Scan
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  snyk-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+
+      # Step 1: Generate the SBOM for unmanaged C++
+      # --unmanaged is the critical for C++ projects
+      - name: Generate SBOM
+        run: |
+          snyk sbom --format=cyclonedx1.5+json \
+                    --unmanaged \
+                    --json-file-output=cpp-sbom.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Step 2: Scan the generated SBOM for vulnerabilities
+      - name: Scan SBOM for vulnerabilities
+        run: |
+          snyk sbom test --file=cpp-sbom.json
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+      # Step 3: Archive the SBOM file for compliance/records
+      - name: Upload SBOM Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-sbom
+          path: cpp-sbom.json
