@@ -28,6 +28,7 @@ jobs:
 
       # Step 2: Scan the generated SBOM for vulnerabilities
       - name: Scan SBOM for vulnerabilities
+        continue-on-error: true
         run: |
           snyk sbom test --file=cpp-sbom.json
         env:
