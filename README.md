@@ -21,7 +21,7 @@ Automated security gates using GitHub Actions leveraging both `snyk test --unman
 ## 🛠️ Setup Instructions
 
 ### 1. Prerequisites
-Ensure you have a Snyk account. If you don't, you can [sign up for free](https://snyk.io).
+Fork the repository 
 
 ### 2. Configure GitHub Secrets
 To enable the CI/CD workflows, follow these steps:
