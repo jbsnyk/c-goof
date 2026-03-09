@@ -1,4 +1,4 @@
-name: Snyk C++ Unmanaged SBOM Scan
+name: Snyk C++ Unmanaged CLI Scan
 
 on:
   push:
