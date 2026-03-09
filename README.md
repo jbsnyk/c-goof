@@ -6,7 +6,7 @@ This repository is a demonstration environment for scanning C/C++ projects using
 
 ## ⚠️ Important Notes
 
-* **Dependency Scanning:** C/C++ scanning with Snyk requires the source code of the packages being leveraged. Typically, these must reside within the `/vendors` directory.
+* **Dependency Scanning:** C/C++ scanning with Snyk requires the source code of the packages being leveraged. Typically, these reside within the `/vendors` directory.
 * **Authentication:** When you fork this repo, you **must** set up your repository environment variables. 
     * Add `SNYK_TOKEN` to your GitHub Actions Secrets to allow the workflows to authenticate with your Snyk account.
 
